@@ -28,14 +28,13 @@ export function MessageCard({ message, onMessageDelete }: MessageCardProps) {
 
   const handleDeleteConfirm = async () => {
     try {
-      const response = await axios.delete<ApiResponse>(
-        `/api/delete-message/${message._id}`
-      );
+      const response = await axios.delete<ApiResponse>('/api/delete-message', { data: { messageId: message._id } });
       toast.message(response.data.message);
       onMessageDelete(message._id.toString());
 
     } catch (error) {
       const axiosError = error as AxiosError<ApiResponse>;
+      console.log(axiosError);
       toast.warning(axiosError.message);
     } 
   };

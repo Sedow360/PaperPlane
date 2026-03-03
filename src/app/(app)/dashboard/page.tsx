@@ -83,7 +83,7 @@ export default function Page () {
         fetchMessages();
     }, [session, fetchAcceptMessages, fetchMessages]);
 
-    const handleDelete = (messageId: string) => {
+    const handleDelete = async (messageId: string) => {
         setMessages(prev => prev.filter((message) => message._id.toString() !== messageId));
     }
 
