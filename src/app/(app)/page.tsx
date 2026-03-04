@@ -288,7 +288,6 @@ export default function Home() {
                 ) : (
                   <Search size={15} />
                 )}
-                {loading ? 'Finding...' : 'Find'}
               </button>
             </div>
 
