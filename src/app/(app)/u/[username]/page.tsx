@@ -194,7 +194,7 @@ export default function Page({ params }: PageProps) {
             }}
           >
             <Sparkles size={13} className="text-amber-400" />
-            Anonymous · Honest · Safe
+            Anonymous · Peaceful · Safe
           </div>
 
           <h1

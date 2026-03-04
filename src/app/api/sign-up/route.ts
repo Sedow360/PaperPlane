@@ -19,8 +19,16 @@ export async function POST(req: Request) {
                 success: false, message: "Username is already taken"
             }, {status: 400});
         }
-
         const existingUserByEmail = await UserModel.findOne({email});
+        const existingUnverifiedByUsername = await UserModel.findOne({
+            username,
+            isVerified: false
+        });
+
+        // If username is taken by an unverified account with a DIFFERENT email, delete it
+        if (existingUnverifiedByUsername && existingUnverifiedByUsername.email !== email) {
+            await UserModel.deleteOne({ _id: existingUnverifiedByUsername._id });
+        }
         const code = Math.floor(100000 + Math.random() * 900000).toString();
 
         if (existingUserByEmail) {

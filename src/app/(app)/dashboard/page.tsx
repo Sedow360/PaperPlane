@@ -92,7 +92,7 @@ export default function Page () {
         try {
             await axios.post("/api/accept-messages", { acceptMessages: !acceptMessages });
             setValue('acceptMessage', !acceptMessages);
-            toast.message(!acceptMessages ? "You can accept paper planes now!" : "You cannot accept paper planes now!")
+            toast.message(!acceptMessages ? "Opened the window for breeze (and paperplanes)!" : "Have had enough of these for now...")
         } catch (error) {
             const axiosError = error as AxiosError<ApiResponse>;
             toast.warning(axiosError.response?.data.message || "Failed to switch mode");
@@ -110,7 +110,7 @@ export default function Page () {
 
     const copyToClipboard = () => {
         navigator.clipboard.writeText(profileUrl);
-        toast.message("Mow you can receive paper planes from others!");
+        toast.message("Invite others to send you paperplanes!");
     }
 
     return (
@@ -123,7 +123,7 @@ export default function Page () {
 
         <div className="mb-8 p-6 rounded-xl bg-blue-900/10 border border-blue-400/20">
             <h2 className="text-sm uppercase tracking-widest font-semibold mb-3 text-blue-300">
-                Copy the link to Your Unique Leisure
+                Let others know about your leisure
             </h2>
             <div className="flex items-center gap-2">
                 <input type="text" value={profileUrl} disabled className="w-full p-3 bg-slate-950/40 border border-white/10 rounded-lg text-slate-400"/>

@@ -38,7 +38,7 @@ export async function POST(req: Request) {
             return Response.json(
                 {
                     success: false,
-                    message: `${user.username} is not accepting messages`
+                    message: `${user.username} has closed his/her window`
                 },
                 { status: 403 }
             )

@@ -15,9 +15,9 @@ export default function Navbar() {
         router.replace("/sign-in");
     }
     const handleLogOut = () => {
-        signOut();
-        router.replace("/");
+        signOut({ callbackUrl: '/' });
     }
+
 
     return (
         <nav className="sticky top-0 z-50 flex items-center justify-between px-8 py-4 

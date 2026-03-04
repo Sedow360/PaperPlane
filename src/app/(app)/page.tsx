@@ -315,7 +315,7 @@ export default function Home() {
         style={{ background: 'linear-gradient(160deg, #fde68a 0%, #f9a8d4 50%, #c084fc 100%)' }}
       >
         <h2 className="text-3xl md:text-5xl font-black mb-4 max-w-2xl" style={{ color: '#1e1b4b', fontFamily: "'Georgia', serif" }}>
-          Ready to hear what people really think about you?
+          Ready to read what people really think about you?
         </h2>
         <p className="text-base mb-10 max-w-md" style={{ color: '#374151' }}>
           Join thousands already using PaperPlane to grow, connect, and read the messages meant for you.

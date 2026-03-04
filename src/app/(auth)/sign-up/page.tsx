@@ -147,9 +147,9 @@ export default function Page() {
         </Form>
         <div className="text-center mt-4">
           <p>
-            Already a member?{' '}
+            Have a leisure already?{' '}
             <Link href="/sign-in" className="text-blue-600 hover:text-blue-800">
-              Sign in
+              Let&apos;s go
             </Link>
           </p>
         </div>

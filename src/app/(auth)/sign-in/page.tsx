@@ -49,7 +49,7 @@ export default function Page() {
           <h1 className="text-5xl font-black text-slate-900 mb-2">
             We&apos;re so close!
           </h1>
-          <p className="mb-4">Let&apos;s call it a day and head back to our leisure..</p>
+          <p className="mb-4">Let&apos;s call it a day and head back to your leisure..</p>
         </div>
         <Form {...register}>
           <form onSubmit={register.handleSubmit(onSubmit)} className="space-y-6">
@@ -87,9 +87,9 @@ export default function Page() {
         </Form>
         <div className="text-center mt-4">
           <p>
-            Not a member?{' '}
+            Don&apos;t have a leisure yet?{' '}
             <Link href="/sign-up" className="text-blue-600 hover:text-blue-800">
-              Sign Up
+              Built one
             </Link>
           </p>
         </div>
