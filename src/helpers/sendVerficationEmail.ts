@@ -18,7 +18,7 @@ export async function sendVerificationEmail(
     <div style="font-size: 32px; font-weight: bold; letter-spacing: 8px; margin: 24px 0; color: #1e3a8a;">
       ${code}
     </div>
-    <a href="http://localhost:3000/verify/${username}" 
+    <a href="${process.env.PUBLIC_URL}/${username}" 
        style="display: inline-block; margin-top: 16px; padding: 12px 24px; background-color: #1e3a8a; color: white; text-decoration: none; border-radius: 8px; font-size: 16px;">
       Verify your account
     </a>

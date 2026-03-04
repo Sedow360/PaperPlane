@@ -6,7 +6,7 @@ export const config = {
   matcher: ['/dashboard/:path*', '/sign-in', '/sign-up', '/', '/verify/:path*'],
 };
 
-const allowedOrigins = ['http://localhost:3000/']
+const allowedOrigins = ['http://localhost:3000/', `${process.env.PUBLIC_URL}`]
  
 const corsOptions = {
   'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
