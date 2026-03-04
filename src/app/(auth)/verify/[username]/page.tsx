@@ -60,7 +60,7 @@ export default function Page() {
             const res = await axios.get<ApiResponse>(`/api/verifyUser?username=${param.username}`);
             const message = res.data.message;
             if (message === "Verified") {
-                toast.message("You have the most perfect six digits ever!");
+                toast.success("You have the most perfect six digits ever!");
                 setIsVerified(true);
             } else if (message === "User not found" || message === "Username is required") {
                 toast.warning("You have not signed up yet!");

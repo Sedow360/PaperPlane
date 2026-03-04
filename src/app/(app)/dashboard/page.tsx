@@ -10,7 +10,7 @@ import { ApiResponse } from "@/types/ApiResponse";
 import { zodResolver } from "@hookform/resolvers/zod";
 import axios, { AxiosError } from "axios";
 import { Loader2, RefreshCcw } from "lucide-react";
-import { useSession } from "next-auth/react";
+import { useSession, signOut } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { useCallback, useEffect, useState } from "react"
 import { useForm } from "react-hook-form";
@@ -37,6 +37,29 @@ export default function Page () {
             router.replace("/sign-in");
         }
     }, [session, router]);
+
+    const handleDeleteAccount = async () => {
+        toast.error("Delete your leisure?", {
+            description: "This is permanent. Your paperplanes, personality, everything — gone.",
+            action: {
+                label: "Delete",
+                onClick: async () => {
+                    try {
+                        await axios.delete("/api/delete-user");
+                        await signOut({ redirect: true, callbackUrl: '/' });
+                    } catch (error) {
+                        const axiosError = error as AxiosError<ApiResponse>;
+                        toast.warning(axiosError.response?.data.message || "Failed to delete account");
+                    }
+                },
+            },
+            cancel: {
+                label: "Keep it",
+                onClick: () => {},
+            },
+            position: "top-center"
+        });
+    };
 
     const handlePersonalitySave = async () => {
         try {
@@ -117,9 +140,14 @@ export default function Page () {
     /* Main Container: Swapped bg-white for a deep sapphire glass effect */
     <div className="my-8 mx-4 md:mx-8 lg:mx-auto p-8 bg-white/5 backdrop-blur-lg border border-white/10 rounded-2xl w-full max-w-6xl shadow-2xl">
         
-        <h1 className="text-4xl font-bold mb-6 text-white drop-shadow-md">
-            Your Leisure
-        </h1>
+        <div className="flex items-center justify-between mb-6">
+            <h1 className="text-4xl font-bold text-white drop-shadow-md">
+                Your Leisure
+            </h1>
+            <Button onClick={handleDeleteAccount} variant="outline"
+                className="border-white/10 hover:bg-red-500/10 hover:border-red-500/30 hover:text-red-400 text-slate-400 transition-all duration-200"
+            >Leave it behind</Button>
+        </div>
 
         <div className="mb-8 p-6 rounded-xl bg-blue-900/10 border border-blue-400/20">
             <h2 className="text-sm uppercase tracking-widest font-semibold mb-3 text-blue-300">

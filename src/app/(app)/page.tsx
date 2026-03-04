@@ -267,8 +267,8 @@ export default function Home() {
                   setError('');
                 }}
                 onKeyDown={(e) => e.key === 'Enter' && handleLookup()}
-                placeholder="enter username"
-                className="flex-1 bg-transparent outline-none text-base font-medium placeholder:font-normal"
+                placeholder="Enter username"
+                className="flex-1 bg-transparent outline-none text-sm font-medium placeholder:font-normal"
                 style={{ color: '#1e1b4b', caretColor: '#7c3aed' }}
               />
 
