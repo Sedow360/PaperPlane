@@ -1,10 +1,20 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { getToken } from 'next-auth/jwt';
+import { Ratelimit } from '@upstash/ratelimit';
+import { Redis } from '@upstash/redis';
 export { default } from 'next-auth/middleware';
 
 export const config = {
-  matcher: ['/dashboard/:path*', '/sign-in', '/sign-up', '/', '/verify/:path*'],
+  matcher: ['/dashboard/:path*', '/sign-in', '/sign-up', '/', '/verify/:path*', '/api/send-message', '/api/sign-up', '/api/verify-user'],
 };
+
+const ratelimit = new Ratelimit({
+  redis: Redis.fromEnv(),
+  limiter: Ratelimit.slidingWindow(10, '1 m'),
+  analytics: true,
+});
+
+const RATE_LIMITED_ROUTES = ['/api/send-message', '/api/sign-up', '/api/verify-user'];
 
 const allowedOrigins = ['http://localhost:3000/', `${process.env.PUBLIC_URL}`]
  
@@ -14,6 +24,21 @@ const corsOptions = {
 }
 
 export async function proxy(request: NextRequest) {
+    const { pathname } = request.nextUrl;
+
+    // Rate limiting for sensitive routes
+    if (RATE_LIMITED_ROUTES.some((route) => pathname.startsWith(route))) {
+      const ip = request.headers.get('x-forwarded-for') ?? 'anonymous';
+      const { success } = await ratelimit.limit(`${pathname}:${ip}`);
+
+      if (!success) {
+        return NextResponse.json(
+          { message: 'Too many requests. Please slow down.' },
+          { status: 429 }
+        );
+      }
+    }
+
     // Check the origin from the request
     const origin = request.headers.get('origin') ?? ''
     const isAllowedOrigin = allowedOrigins.includes(origin)
@@ -37,8 +62,8 @@ export async function proxy(request: NextRequest) {
     if (
       token &&
       (url.pathname.startsWith('/sign-in') ||
-        url.pathname.startsWith('/sign-up') ||
-        url.pathname.startsWith('/verify'))
+        url.pathname.startsWith('/sign-up')
+      )
     ) {
       return NextResponse.redirect(new URL('/dashboard', request.url));
     }
