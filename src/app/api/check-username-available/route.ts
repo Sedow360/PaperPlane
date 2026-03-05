@@ -31,7 +31,7 @@ export async function GET(req: Request) {
             return Response.json(
                 {
                     success: false,
-                    message: "You have a twin? Too bad he is faster..."
+                    message: "You have a twin? Too bad they are faster..."
                 }, { status: 400 }
             )
         }
