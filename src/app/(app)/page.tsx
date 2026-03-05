@@ -100,7 +100,7 @@ export default function Home() {
 
         <p className="relative z-10 text-lg md:text-xl max-w-xl mb-10 leading-relaxed"
           style={{ color: 'rgba(255,255,255,0.82)' }}>
-          PaperPlane is where candid thoughts find a home — no names, no shyness, just some messages which found their owner.
+          PaperPlane is where candid thoughts find a home — no names, no shyness, just some messages which find their owner.
         </p>
 
         {/* CTA Buttons */}

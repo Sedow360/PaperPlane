@@ -384,7 +384,7 @@ export default function Page({ params }: PageProps) {
         {/* Footer nudge */}
         <p className="text-center text-xs mt-8" style={{ color: '#94a3b8' }}>
           Want your own leisure?{' '}
-          <Link href="/" className="font-semibold hover:underline" style={{ color: '#0369a1' }}>
+          <Link href="/sign-up" className="font-semibold hover:underline" style={{ color: '#0369a1' }}>
             Create one on PaperPlane
           </Link>
         </p>
