@@ -9,6 +9,8 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import Autoplay from 'embla-carousel-autoplay';
 import axios from 'axios';
 import messages from '@/messages.json';
+import Image from 'next/image';
+//import heroImg from "./";
 
 import {
   Carousel,
@@ -45,87 +47,54 @@ export default function Home() {
   return (
     <div className="min-h-screen flex flex-col font-sans">
       {/* HERO SECTION */}
-      <section
-        className="relative flex flex-col items-center justify-center min-h-[85vh] px-6 text-center overflow-hidden"
-        style={{
-          background: 'linear-gradient(160deg, #0f0c29 0%, #1a1a4e 15%, #2d1b69 28%, #6b3fa0 45%, #c084fc 62%, #f9a8d4 76%, #fde68a 90%, #fef3c7 100%)',
-        }}
-      >
-        {/* Subtle noise/grain overlay */}
-        <div
-          className="absolute inset-0 opacity-30 pointer-events-none"
-          style={{
-            backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.4'/%3E%3C/svg%3E")`,
-            backgroundSize: '200px 200px',
-          }}
-        />
+      <section className="relative flex items-center justify-center min-h-[85vh] px-6 py-12 text-left overflow-hidden" style={{ background: 'linear-gradient(160deg, #0f0c29 0%, #1a1a4e 15%, #2d1b69 28%, #6b3fa0 45%, #c084fc 62%, #f9a8d4 76%, #fde68a 90%, #fef3c7 100%)' }}>
+      {/* Noise Overlay */}
+        <div className="absolute inset-0 opacity-30 pointer-events-none" style={{ backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.4'/%3E%3C/svg%3E")`, backgroundSize: '200px 200px' }} />
 
-        {/* BG IMAGE SLOT — drop your hero image here */}
-        {/*
-          <Image
-            src="/your-hero-image.jpg"
-            alt="Hero background"
-            fill
-            className="object-cover opacity-20 mix-blend-overlay"
-            priority
-          />
-        */}
+  <div className="relative z-10 max-w-7xl w-full grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+    
+    {/* LEFT COLUMN: TEXT CONTENT */}
+          <div className="flex flex-col items-start text-left">
+            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full mb-6 text-sm font-medium tracking-wide" style={{ background: 'rgba(255,255,255,0.12)', backdropFilter: 'blur(8px)', border: '1px solid rgba(255,255,255,0.2)', color: '#fef3c7' }}>
+              <Sparkles size={10} className="text-yellow-300" /> Anonymous · Peaceful · Belonging
+            </div>
 
-        {/* Floating glow orbs */}
-        <div className="absolute top-16 left-1/4 w-72 h-72 rounded-full opacity-20 blur-3xl pointer-events-none"
-          style={{ background: 'radial-gradient(circle, #c084fc, transparent)' }} />
-        <div className="absolute bottom-24 right-1/4 w-96 h-96 rounded-full opacity-15 blur-3xl pointer-events-none"
-          style={{ background: 'radial-gradient(circle, #fde68a, transparent)' }} />
+            <h1 className="text-4xl md:text-6xl font-black leading-tight mb-6" style={{ fontFamily: "'Georgia', serif", background: 'linear-gradient(135deg, #ffffff 0%, #fde68a 50%, #f9a8d4 100%)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>
+              Share virtual paperplanes.<br />Connect with those who matter.
+            </h1>
 
-        {/* Badge */}
-        <div className="relative z-10 inline-flex items-center gap-2 px-4 py-1.5 rounded-full mb-6 text-sm font-medium tracking-wide"
-          style={{ background: 'rgba(255,255,255,0.12)', backdropFilter: 'blur(8px)', border: '1px solid rgba(255,255,255,0.2)', color: '#fef3c7' }}>
-          <Sparkles size={14} className="text-yellow-300" />
-          Anonymous · Peaceful · Belonging
+            <p className="text-lg md:text-xl max-w-xl mb-10 leading-relaxed" style={{ color: 'rgba(255,255,255,0.82)' }}>
+        PaperPlane is where candid thoughts find a home — no names, no shyness, just some messages which find their owner.
+            </p>
+
+            <div className="flex flex-col sm:flex-row gap-4">
+              <Button asChild size="lg" className="px-8 py-6 text-base font-semibold rounded-2xl shadow-xl" style={{ background: 'linear-gradient(135deg, #6228c6, #ae5ffc)', color: 'white', border: 'none' }}>
+                <Link href="/sign-up"> Create your leisure <ArrowRight size={18} className="ml-2" /> </Link>
+              </Button>
+              <Button asChild size="lg" variant="outline" className="px-8 py-6 text-base font-semibold rounded-2xl" style={{ background: 'rgba(19, 15, 15, 0.1)', backdropFilter: 'blur(8px)', border: '1px solid rgba(255, 255, 255, 0.147)', color: 'white' }}>
+                <Link href="/sign-in">Visit your leisure</Link>
+              </Button>
+            </div>
         </div>
 
-        {/* Headline */}
-        <h1
-          className="relative z-10 text-5xl md:text-7xl font-black leading-tight mb-6 max-w-4xl"
-          style={{
-            fontFamily: "'Georgia', serif",
-            background: 'linear-gradient(135deg, #ffffff 0%, #fde68a 50%, #f9a8d4 100%)',
-            WebkitBackgroundClip: 'text',
-            WebkitTextFillColor: 'transparent',
-            backgroundClip: 'text',
-          }}
-        >
-          Send paperplanes.<br />Receive the ones meant for you.
-        </h1>
-
-        <p className="relative z-10 text-lg md:text-xl max-w-xl mb-10 leading-relaxed"
-          style={{ color: 'rgba(255,255,255,0.82)' }}>
-          PaperPlane is where candid thoughts find a home — no names, no shyness, just some messages which find their owner.
-        </p>
-
-        {/* CTA Buttons */}
-        <div className="relative z-10 flex flex-col sm:flex-row gap-4">
-          <Button
-            asChild
-            size="lg"
-            className="px-8 py-6 text-base font-semibold rounded-2xl shadow-xl"
-            style={{ background: 'linear-gradient(135deg, #7c3aed, #c084fc)', color: 'white', border: 'none' }}
-          >
-            <Link href="/sign-up">
-              Create your leisure <ArrowRight size={18} className="ml-2" />
-            </Link>
-          </Button>
-          <Button
-            asChild
-            size="lg"
-            variant="outline"
-            className="px-8 py-6 text-base font-semibold rounded-2xl"
-            style={{ background: 'rgba(255,255,255,0.1)', backdropFilter: 'blur(8px)', border: '1px solid rgba(255,255,255,0.3)', color: 'white' }}
-          >
-            <Link href="/sign-in">Visit your leisure</Link>
-          </Button>
+      {/* RIGHT COLUMN: ROUNDED IMAGE */}
+        <div className="relative flex justify-center items-center">
+          <div className="relative w-75 h-75 md:w-112.5 md:h-112.5 rounded-full overflow-hidden border-4 border-white/20 shadow-2xl">
+            <Image 
+              src="/hero6.png" 
+              alt="Hero background" 
+              fill 
+              className="object-cover"
+              priority 
+            />
+          </div>
+        {/* Decorative glow behind the circle */}
+          <div className="absolute -z-10 w-[110%] h-[110%] rounded-full blur-3xl opacity-30" style={{ background: 'radial-gradient(circle, #c084fc, transparent)' }} />
         </div>
-      </section>
+
+      </div>
+    </section>
+
 
       {/* CAROUSEL SECTION */}
       <section
