@@ -12,7 +12,7 @@
 
 > A Next.js anonymous messaging app — like passing notes in class, but for the internet. An NGL-inspired clone built to go deep on Next.js, then pushed further with original features, subtle UX touches, and real edge case handling.
 
-[Live Demo](https://paper-plane-iota.vercel.app/) · [Tutorial Reference](https://youtu.be/OgS1ZWZItno?si=S7UkxmyUfOX1E52k) · [Hitesh Choudhary](https://www.linkedin.com/in/hiteshchoudhary/)
+[Live Demo](https://paper-plane-iota.vercel.app/) · [Tutorial Reference](https://youtu.be/OgS1ZWZItno?si=S7UkxmyUfOX1E52k) · [Hitesh Choudhary](https://www.linkedin.com/in/hiteshchoudhary/) . [Unfiltered blog](https://niche-holy-tech.vercel.app/post/i-followed-a-tutorial-then-i-didn-t-here-s-what-happened)
 
 ---
 
