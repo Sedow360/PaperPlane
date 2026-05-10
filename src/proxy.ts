@@ -1,18 +1,23 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { getToken } from 'next-auth/jwt';
-import { Ratelimit } from '@upstash/ratelimit';
-import { Redis } from '@upstash/redis';
+import { LRUCache } from 'lru-cache';
 export { default } from 'next-auth/middleware';
 
 export const config = {
   matcher: ['/dashboard/:path*', '/sign-in', '/sign-up', '/', '/verify/:path*', '/api/send-message', '/api/sign-up', '/api/verify-user'],
 };
 
-const ratelimit = new Ratelimit({
-  redis: Redis.fromEnv(),
-  limiter: Ratelimit.slidingWindow(10, '1 m'),
-  analytics: true,
+const rateLimitCache = new LRUCache<string, number>({
+  max: 500,
+  ttl: 60 * 1000, // 1 minute window
 });
+
+function isRateLimited(key: string, limit = 10): boolean {
+  const count = rateLimitCache.get(key) ?? 0;
+  if (count >= limit) return true;
+  rateLimitCache.set(key, count + 1);
+  return false;
+}
 
 const RATE_LIMITED_ROUTES = ['/api/send-message', '/api/sign-up', '/api/verify-user'];
 
@@ -26,12 +31,9 @@ const corsOptions = {
 export async function proxy(request: NextRequest) {
     const { pathname } = request.nextUrl;
 
-    // Rate limiting for sensitive routes
     if (RATE_LIMITED_ROUTES.some((route) => pathname.startsWith(route))) {
       const ip = request.headers.get('x-forwarded-for') ?? 'anonymous';
-      const { success } = await ratelimit.limit(`${pathname}:${ip}`);
-
-      if (!success) {
+      if (isRateLimited(`${pathname}:${ip}`)) {
         return NextResponse.json(
           { message: 'Too many requests. Please slow down.' },
           { status: 429 }
@@ -57,8 +59,6 @@ export async function proxy(request: NextRequest) {
     const token = await getToken({ req: request });
     const url = request.nextUrl;
 
-    // Redirect to dashboard if the user is already authenticated
-    // and trying to access sign-in, sign-up, or home page
     if (
       token &&
       (url.pathname.startsWith('/sign-in') ||
@@ -72,7 +72,6 @@ export async function proxy(request: NextRequest) {
       return NextResponse.redirect(new URL('/sign-in', request.url));
     }
 
-    // Handle simple requests
     const response = NextResponse.next()
  
     if (isAllowedOrigin) {

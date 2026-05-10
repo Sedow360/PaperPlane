@@ -59,8 +59,6 @@ export async function GET(req: Request) {
     const data = await response.json();
     const text = data.choices[0].message.content;
 
-    console.log(text);
-
     return Response.json({ success: true, text }, { status: 200 });
 
   } catch (error) {
